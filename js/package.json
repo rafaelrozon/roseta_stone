@@ -1,0 +1,15 @@
+{
+  "name": "roseta-stone-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rafael Rozon",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^22.4.4",
+    "ramda": "^0.25.0"
+  }
+}
