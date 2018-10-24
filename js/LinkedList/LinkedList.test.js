@@ -1,7 +1,7 @@
 const LinkedList = require('./LinkedList');
 const Node = require('./Node');
 
-describe('LinkedList Tests', () => {
+describe('LinkedListX Tests', () => {
 
     it('prints a linked list', () => {
 
