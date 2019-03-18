@@ -14,7 +14,7 @@ public class LinkedListTest {
         l.addToHead(3);
         l.addToHead(4);
         l.addToHead(5);
-        assertEquals(5, l.getHead().getValue());
+        assertEquals(5, l.head.value);
         assertEquals(3, l.size());
     }
 
@@ -24,7 +24,7 @@ public class LinkedListTest {
         l.addToHead(3);
         l.addToHead(4);
         l.addToTail(2);
-        assertEquals(2, l.getTail().getValue());
+        assertEquals(2, l.getTail().value);
         assertEquals(3, l.size());
     }
 
@@ -36,7 +36,7 @@ public class LinkedListTest {
         l.addToHead(1);
         l.addToHead(55);
         Node n = l.findByValue(3);
-        assertEquals(3, n.getValue());
+        assertEquals(3, n.value);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class LinkedListTest {
             Node head = l.deleteHead();
 
             assertEquals(55, head.value);
-            assertEquals(1, l.getHead().value);
+            assertEquals(1, l.head.value);
 
         } catch (Exception e) {
             System.out.println("Got Exception");

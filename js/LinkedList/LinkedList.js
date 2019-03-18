@@ -1,29 +1,64 @@
 const Node = require('./Node');
 
+/**
+ *
+ */
 class LinkedList {
     constructor() {
         this.head = undefined;
         this.length = 0;
     }
 
-    addToHead(value) {
-        if (!this.head) {
-            const node = new Node(value);
-            this.head = node;
-        } else {
-            const node = new Node(value);
-            node.next = this.head;
-            this.head = node;
-        }
+    /**
+     *
+     * @returns {boolean} true if the head is a node
+     */
+    isEmpty() {
+        return typeof this.head !== 'undefined';
+    }
+
+    /**
+     * Increase size by 1
+     */
+    increaseSize() {
         this.length += 1;
     }
 
+    /**
+     * Decrease size by 1
+     */
+    decreaseSize() {
+        this.length -= 1;
+    }
+
+    /**
+     * Create a Node and make it the head
+     * @param value node value
+     */
+    addToHead(value) {
+
+        if (this.isEmpty()) {
+            this.head = new Node(value);
+        } else {
+            // create the node first, the current head will be the next value of the node
+            // then promote the just created node to be the head
+            this.head = new Node(value, this.head);
+        }
+
+        this.increaseSize();
+    }
+
+    /**
+     * Create a node and add it to the end of the list
+     * @param value
+     */
     addToTail(value) {
-        if (!this.head) {
+        if (this.isEmpty()) {
             this.head = new Node(value);
         } else {
             let curr = this.head;
 
+            // loop will stop at the last node
             while (typeof curr.next !== 'undefined') {
                 curr = curr.next;
             }
@@ -31,51 +66,72 @@ class LinkedList {
             curr.next = new Node(value);
         }
 
-        this.length += 1;
+        this.increaseSize();
     }
 
+    /**
+     * Find a node in the list by checking its value.
+     * @param value value to find
+     * @returns {Node}
+     */
     findByValue(value) {
         let temp = this.head;
 
-        while (temp.next) {
-            if (temp.value === value) {
-                break;
-            }
-
+        while (temp.value !== value) {
             temp = temp.next;
+        }
+
+        if (temp === this.head && temp.value !== value) {
+            return;
         }
 
         return temp;
     }
 
+    /**
+     *
+     * @param value
+     * @returns {*}
+     */
     deleteByValue(value) {
-        if (!this.head || !this.head.next) {
+        if (this.isEmpty()) {
             throw new Error(`List is empty. No value to delete: ${value}`);
         }
 
-        let t1 = this.head;
-        let t2 = this.head.next;
-        let deletedNode;
+        let temp = this.head;
+        let prev;
 
-        while (t2.value !== value && t2.next) {
-            t1 = t1.next;
-            t2 = t2.next;
+        // head has the value
+        if (temp && temp.value === value) {
+            this.decreaseSize();
+            this.head = this.head.next;
+            return temp;
         }
 
-        deletedNode = t2;
+        // head doesn't have the value, loop through the list
+        while(temp && temp.value !== value) {
+            temp = temp.next;
+            prev = temp;
+        }
 
-        // remove the node by making the previous node next point to the node
-        // after the one with the match value
-        t1.next = t2.next;
+        // didnt='t find the value in the list
+        if (!temp) {
+            return;
+        }
 
-        this.length -= 1;
+        // found the value in the list
+        prev.next = temp.next;
 
-        // remove any reference
-        t2 = null;
+        this.decreaseSize();
 
-        return deletedNode;
+        return temp;
+
     }
 
+    /**
+     * Prints the values in the list as a representation of the list itself
+     * @returns {Array}
+     */
     printList() {
         let temp = this.head;
 
@@ -91,8 +147,12 @@ class LinkedList {
         return arr;
     }
 
+    /**
+     *
+     * @returns {Node} deleted node reference
+     */
     deleteHead() {
-        if (!this.head) {
+        if (this.isEmpty()) {
             throw new Error('List is empty');
         }
 
@@ -110,13 +170,14 @@ class LinkedList {
         return node;
     }
 
-    getLength() {
+    /**
+     *
+     * @returns {number} list size
+     */
+    size() {
         return this.length;
     }
 
-    getHead() {
-        return this.head;
-    }
 }
 
 module.exports = LinkedList;

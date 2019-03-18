@@ -13,7 +13,7 @@ describe('LinkedListX Tests', () => {
         const arr = list.printList();
 
         expect(arr).toEqual([5,9,3]);
-    })
+    });
 
     it('adds a node to the head', () => {
 

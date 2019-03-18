@@ -1,5 +1,5 @@
-from .Node import Node
-import Exception
+from ..Node import Node
+
 
 class LinkedList:
 
@@ -28,7 +28,7 @@ class LinkedList:
 
     def add_to_tail(self, value):
         if self.is_empty():
-            self.head = Node(value)
+            self.head = Node(value, None)
         else:
             curr = self.head
             while curr.next is not None:
@@ -44,13 +44,42 @@ class LinkedList:
         while current.value != value:
             current = current.next
 
-        if current == self.head and current.value != value
+        if current == self.head and current.value != value:
             return None
 
         return current
 
     def delete_by_value(self, value):
-        if self.is_empty():
-            raise Exception("List is empty")
+        temp = self.head
+        prev = Node
 
+        if temp is not None and temp.value == value:
+            self.decrease_size()
+            self.head = self.head.next
+            return temp
 
+        while temp is not None and temp.value != value:
+            temp = temp.next
+            prev = temp
+
+        if temp is None:
+            return None
+
+        prev.next = temp.next
+
+        self.decrease_size()
+
+        return temp
+
+    def delete_head(self):
+        temp = self.head
+
+        if self.next is not None:
+            self.head = self.head.next
+        else:
+            self.head = None
+
+        return temp
+
+if __name__ == '__main__':
+    LinkedList()
